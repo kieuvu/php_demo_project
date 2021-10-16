@@ -1,0 +1,325 @@
+/* Font */
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script&display=swap");
+/* / Font */
+
+/* Base Config */
+.text-overfl-2line {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+body {
+  scroll-behavior: smooth;
+}
+
+label {
+  font-weight: 600;
+  font-size: 17px;
+}
+
+/* / Base Config */
+
+/* Header PC Top */
+#PC__HEADER #header__top {
+  height: 32px;
+  background: rgb(0, 0, 0);
+  padding: 4px 0;
+}
+#PC__HEADER .header__top-socialLink {
+  color: white;
+  margin-right: 8px;
+}
+#PC__HEADER .header__top-socialLink:hover {
+  text-decoration: none;
+}
+#PC__HEADER .header__top-socialLink i {
+  font-size: 20px;
+}
+#PC__HEADER #header__top-userOption ul li {
+  list-style-type: none;
+}
+#PC__HEADER #header__top-userOption ul li a {
+  color: white;
+}
+#PC__HEADER #header__main {
+  background: rgb(255, 255, 255, 0.95);
+  height: 80px;
+  width: 100%;
+  z-index: 9999999999;
+}
+#PC__HEADER #header__main-logo #kmvlogo {
+  font-family: "Dancing Script", cursive;
+  font-weight: bold;
+  font-size: 50px;
+}
+#PC__HEADER #header__main-logo #kmvlogo:hover {
+  text-decoration: none;
+}
+#PC__HEADER #header__main-menu ul li {
+  list-style-type: none;
+  margin-left: 14px;
+}
+#PC__HEADER #header__main-menu ul li a {
+  color: black;
+}
+#PC__HEADER #header__main-menu ul li a:hover {
+  text-decoration: none;
+}
+
+#PC__HEADER #header__main-menu ul li .searchSection {
+  position: fixed;
+  right: 0;
+  bottom: 50%;
+  transform: translateY(50%);
+}
+
+#PC__HEADER #header__main-menu ul li .searchbar {
+  margin-bottom: auto;
+  margin-top: auto;
+  height: 60px;
+  background-color: hsla(0, 0%, 91%, 0.356);
+  border-radius: 30px;
+  padding: 10px;
+}
+
+#PC__HEADER #header__main-menu ul li .search_input {
+  color: #212529;
+  border: 0;
+  outline: 0;
+  background: none;
+  width: 85px;
+  caret-color: transparent;
+  line-height: 40px;
+  transition: width 0.4s linear;
+}
+
+#PC__HEADER #header__main-menu ul li .searchbar:focus-within .search_input,
+#PC__HEADER #header__main-menu ul li .searchbar:hover .search_input {
+  padding: 0 10px;
+  width: 200px;
+  caret-color: red;
+  transition: width 0.4s linear;
+}
+
+#PC__HEADER #header__main-menu ul li .searchbar:focus-within .search_icon,
+#PC__HEADER #header__main-menu ul li .searchbar:hover .search_icon {
+  background: white;
+  color: #e74c3c;
+}
+
+#PC__HEADER #header__main-menu ul li .searchbar button {
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+#PC__HEADER #header__main-menu ul li .search_icon {
+  height: 40px;
+  width: 40px;
+  float: right;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: black;
+  text-decoration: none;
+}
+.sticky {
+  position: fixed;
+  top: 0;
+  box-shadow: 0 0 10px 3px rgba(0, 0, 0, 0.5);
+  transition: all 0.25s ease-in-out;
+  background: rgb(255, 255, 255);
+  background: rgba(255, 255, 255, 0.97);
+}
+.sticky + .header__margin {
+  height: 80px;
+}
+/* / Header PC Top */
+
+/* Header PC Main */
+
+/* / Header PC Main */
+
+/* Header Mobile */
+
+/* / Header Mobile */
+
+/* Main Header */
+.carousel {
+  background: #007aeb;
+}
+
+.carousel-item {
+  height: 50vh;
+  min-height: 350px;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+/* / Main Header */
+
+/* Reg/Login */
+.logForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 71px);
+}
+.logForm .log_heading {
+  font-size: 30px;
+  font-weight: 500;
+}
+.logForm label {
+  font-weight: 600;
+  margin: 0;
+  margin-bottom: 4px;
+  font-size: 17px;
+}
+.logForm .log_logo {
+  margin-top: 15px;
+  height: 30px;
+  position: relative;
+  width: 100%;
+}
+.registry.log_logo {
+  margin-top: 100px;
+}
+.logForm .log_logo img {
+  height: 120px;
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.logForm .input-group-text {
+  width: 150px;
+}
+/* / Reg/Login */
+
+/* Product Detail */
+.prd_dt-table tr {
+  height: 40px;
+}
+.prd_dt-table th {
+  width: 120px;
+}
+.buy-now {
+  display: block;
+  background: red;
+  color: white;
+  border: 1px solid red;
+  padding: 20px 0;
+  text-align: center;
+  border-radius: 5px;
+  width: 100%;
+}
+.buy-now-nobg {
+  background: white;
+  color: red;
+}
+.buy-now:hover {
+  color: white;
+  text-decoration: none;
+}
+.buy-now-nobg:hover {
+  color: red;
+  text-decoration: none;
+}
+.need-help {
+  background: orange;
+  color: white;
+  border: 1px solid orange;
+  padding: 10px 0;
+  text-align: center;
+  border-radius: 5px;
+  width: 100%;
+  padding-bottom: 14px;
+}
+.need-help b {
+  font-size: 18px;
+}
+.need-help-input {
+  margin-top: 10px;
+  padding: 2px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  width: 90%;
+  border: rgb(197, 197, 197) 1px solid;
+}
+.need-help input {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 4px 8px;
+}
+
+.need-help input::-webkit-outer-spin-button,
+.need-help input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+.need-help input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+#prd_dt-para img {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.numInput button,
+.numInput input {
+  border: none;
+  outline: none;
+}
+
+.numInput button {
+  cursor: pointer;
+}
+
+/* / Product Detail */
+
+/* Back To Top */
+
+.backToTop {
+  position: fixed;
+  bottom: 0;
+  right: 20px;
+  bottom: 20px;
+}
+
+.backToTop button {
+  border-radius: 50%;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  border: none;
+  border: 1px solid #ebebeb;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.backToTop i {
+  font-size: 30px;
+  color: rgb(255, 57, 57);
+}
+.backToTop i:hover {
+  color: red;
+}
+/* Back To Top */
