@@ -5,7 +5,6 @@ if ($_SESSION['loginData']['userPerm'] != 1) {
   echo "<script>window.top.location='index.php';</script>";
 }
 
-
 include("./function/sqlconn.php");
 ?>
 
@@ -34,63 +33,15 @@ if (!empty($_GET['target'])) {
   $prd_brand = $row['prd_brand'];
   $prd_quantity = $row['prd_quantity'];
 }
-if (!empty($_POST)) {
 
-  $prd_name       = $_POST['prd_name'];
-  $prd_price      = $_POST['prd_price'];
-  $prd_quantity   = $_POST['prd_quantity'];
-  $prd_saled      = $_POST['prd_priceSaled'];
-  $prd_desc       = $_POST['prd_desc'];
-  $prd_cate       = $_POST['prd_cate'];
-  $prd_brand      = $_POST['prd_brand'];
-  $prd_err        = [];
-
-  if (empty($prd_name)) {
-    $prd_err['name'] = "*Chưa nhập tên";
-  }
-  if (empty($prd_price)) {
-    $prd_err['price'] = "*Chưa nhập giá";
-  }
-  if (empty($prd_desc)) {
-    $prd_err['desc'] = "*Chưa nhập mô tả";
-  }
-  if ($prd_cate == "0") {
-    $prd_err['cate'] = "*Chưa chọn danh mục";
-  }
-  if ($prd_brand == "0") {
-    $prd_err['brand'] = "*Chưa chọn thương hiệu";
-  }
-
-  if (empty($prd_err)) {
-    $query = "UPDATE products SET prd_name='$prd_name',prd_price='$prd_price',prd_priceSaled='$prd_saled',prd_cate='$prd_cate',prd_brand='$prd_brand',prd_quantity='$prd_quantity',prd_desc='$prd_desc',prd_timeUpdated=now() WHERE prd_id ='$target' ";
-    if (mysqli_query($conn, $query)) {
-      if (isset($_FILES['prd_stImg'])) {
-        move_uploaded_file($_FILES['prd_stImg']["tmp_name"], "./data/upload/img/" . $target);
-      }
-      if (isset($_FILES['prd_ndImg'])) {
-        move_uploaded_file($_FILES['prd_ndImg']["tmp_name"], "./data/upload/img/" . $target . "_1");
-      }
-      if (isset($_FILES['prd_rdImg'])) {
-        move_uploaded_file($_FILES['prd_rdImg']["tmp_name"], "./data/upload/img/" . $target . "_2");
-      }
-      if (isset($_FILES['prd_thImg'])) {
-        move_uploaded_file($_FILES['prd_thImg']["tmp_name"], "./data/upload/img/" . $target . "_3");
-      }
-      mysqli_close($conn);
-      echo "<script>window.top.location='prd_manage.php';</script>";
-    }
-  }
-}
 ?>
 <div class="container">
   <span style="font-size: 25px; font-weight:bold;" class="d-block text-center text-secondary">SỬA SẢN PHẨM</span>
-  <form method="POST" action="#" enctype="multipart/form-data">
+  <form id="edit_prdForm" enctype="multipart/form-data">
+    <input type="text" name="target" readonly hidden value="<?php echo $target ?>">
     <!-- Tên sản phẩm -->
     <div>
-      <label for="prd_name">1. Tên sản phẩm:</label>
-      <span class="has-err text-danger">
-        <?php echo (isset($prd_err['name'])) ?  $prd_err['name'] : "" ?>
-      </span>
+      <label id="name" for="prd_name">1. Tên sản phẩm:</label>
       <div class="input-group mb-3">
         <div class="input-group-prepend">
           <span class="input-group-text" id="inputGroup-sizing-default">Tên</span>
@@ -101,10 +52,7 @@ if (!empty($_POST)) {
     <div class="row">
       <!-- Giá sản phẩm -->
       <div class="col-md-4">
-        <label for="prd_price">2a. Giá sản phẩm:</label>
-        <span class="has-err text-danger">
-          <?php echo (isset($prd_err['price'])) ?  $prd_err['price'] : "" ?>
-        </span>
+        <label id="price" for="prd_price">2a. Giá sản phẩm:</label>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <span class="input-group-text" id="inputGroup-sizing-default">Giá</span>
@@ -135,19 +83,13 @@ if (!empty($_POST)) {
     </div>
     <!-- Mô tả sản phẩm -->
     <div class="form-group">
-      <label for="prd_desc">4. Mô tả sản phẩm: </label>
-      <span class="has-err text-danger">
-        <?php echo (isset($prd_err['desc'])) ?  $prd_err['desc'] : "" ?>
-      </span>
+      <label id="desc" for="prd_desc">4. Mô tả sản phẩm: </label>
       <textarea id="prd_desc" name="prd_desc" class="form-control" id="exampleFormControlTextarea1" rows="3"><?php echo $prd_desc ?></textarea>
     </div>
     <div class="row">
       <!--Chọn Danh mục -->
       <div class=" col-6 ">
-        <label for="prd_category">5. Danh mục:</label>
-        <span class="has-err text-danger">
-          <?php echo (isset($prd_err['cate'])) ?  $prd_err['cate'] : "" ?>
-        </span>
+        <label id="category" for="prd_category">5. Danh mục:</label>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <label class="input-group-text" for="prd_category">Danh mục</label>
@@ -170,10 +112,7 @@ if (!empty($_POST)) {
       </div>
       <!--Chọn Thương hiệu -->
       <div class="col-6">
-        <label for="prd_brand">6. Thương hiệu:</label>
-        <span class="has-err text-danger">
-          <?php echo (isset($prd_err['brand'])) ?  $prd_err['brand'] : "" ?>
-        </span>
+        <label id="brand" for="prd_brand">6. Thương hiệu:</label>
         <div class="input-group mb-3">
           <div class="input-group-prepend">
             <label class="input-group-text" for="prd_brand">Thương hiệu</label>
@@ -239,86 +178,13 @@ if (!empty($_POST)) {
     </div>
     <!-- Submit Form -->
     <div class="mt-3 mb-3">
-      <button type="submit" class="btn btn-primary w-100">Hoàn tất</button>
+      <button type="submit" id="edit-submit" class="btn btn-primary w-100">Hoàn tất</button>
     </div>
   </form>
 </div>
 
-<script>
-  const imgFile1 = document.getElementById('prd_stImg');
-  const previewContainer1 = document.getElementById('img_preview1');
-  const imgPreview1 = document.getElementById("img_preview-img1");
-
-
-  imgFile1.addEventListener('change', function() {
-    const file = this.files[0];
-    if (file) {
-      const reader = new FileReader();
-      previewContainer1.style.display = "block";
-      imgPreview1.style.display = "block";
-      reader.addEventListener('load', function() {
-        imgPreview1.setAttribute('src', this.result);
-      })
-      reader.readAsDataURL(file);
-    }
-  })
-
-  const imgFile2 = document.getElementById('prd_ndImg');
-  const previewContainer2 = document.getElementById('img_preview2');
-  const imgPreview2 = document.getElementById("img_preview-img2");
-
-
-  imgFile2.addEventListener('change', function() {
-    const file = this.files[0];
-    if (file) {
-      const reader = new FileReader();
-      previewContainer2.style.display = "block";
-      imgPreview2.style.display = "block";
-      reader.addEventListener('load', function() {
-        imgPreview2.setAttribute('src', this.result);
-      })
-      reader.readAsDataURL(file);
-    }
-  })
-
-
-  const imgFile3 = document.getElementById('prd_rdImg');
-  const previewContainer3 = document.getElementById('img_preview3');
-  const imgPreview3 = document.getElementById("img_preview-img3");
-
-
-  imgFile3.addEventListener('change', function() {
-    const file = this.files[0];
-    if (file) {
-      const reader = new FileReader();
-      previewContainer3.style.display = "block";
-      imgPreview3.style.display = "block";
-      reader.addEventListener('load', function() {
-        imgPreview3.setAttribute('src', this.result);
-      })
-      reader.readAsDataURL(file);
-    }
-  })
-
-
-  const imgFile4 = document.getElementById('prd_thImg');
-  const previewContainer4 = document.getElementById('img_preview4');
-  const imgPreview4 = document.getElementById("img_preview-img4");
-
-
-  imgFile4.addEventListener('change', function() {
-    const file = this.files[0];
-    if (file) {
-      const reader = new FileReader();
-      previewContainer4.style.display = "block";
-      imgPreview4.style.display = "block";
-      reader.addEventListener('load', function() {
-        imgPreview4.setAttribute('src', this.result);
-      })
-      reader.readAsDataURL(file);
-    }
-  })
-</script>
+<script src="https://cdn.ckeditor.com/ckeditor5/30.0.0/classic/ckeditor.js"></script>
+<script src="./assets/js/editProduct.js"></script>
 
 <?php
 include("./footer.php")

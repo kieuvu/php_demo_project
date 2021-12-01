@@ -9,6 +9,7 @@ $checkLogin = (isset($_SESSION['loginData'])) ? true : false;
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="icon" href="./assets/img/favicon.png" type="image/x-icon" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="./assets/css/style.css">
@@ -140,5 +141,4 @@ $checkLogin = (isset($_SESSION['loginData'])) ? true : false;
     </div>
     <!-- End Mobile Header -->
   </header>
-  <main>
-    <div class="wrapper">
+  <main style="min-height: 100vh;">

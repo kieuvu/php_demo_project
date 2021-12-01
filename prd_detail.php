@@ -122,11 +122,11 @@ if ($result) {
         </tr>
         <tr>
           <th>Danh mục: </th>
-          <td><a href="prd.php?cate=<?php echo $prd_cate ?>&brd=all"><?php echo $cate_name ?></a></td>
+          <td><?php echo $cate_name ?></td>
         </tr>
         <tr>
           <th>Thương hiệu: </th>
-          <td><a href="prd.php?cate=all&brd=<?php echo $prd_brand ?>"><?php echo $brd_name ?></a></td>
+          <td><?php echo $brd_name ?></td>
         </tr>
         <tr>
           <th>Mô tả: </th>
@@ -149,12 +149,12 @@ if ($result) {
         </div>
         <div class="col-12 mt-3">
           <div class="need-help">
-            <b class="d-block">Cần trợ giúp ?</b>
-            <small class="d-block">Để lại số điện thoại, sẽ có người gọi giải đáp</small>
+            <b class="d-block">Cần hỗ trợ ?</b>
+            <small class="d-block">Để lại số điện thoại, sẽ có nhân viên gọi giải đáp !</small>
             <form action="" class="d-flex justify-content-center">
               <div class="need-help-input">
                 <input type="number">
-                <button style="background: orange;" class="btn  text-white">Xác nhận</button>
+                <button style="background: orange;" class="btn text-white">Xác nhận</button>
               </div>
             </form>
           </div>
@@ -162,9 +162,9 @@ if ($result) {
       </div>
     </div>
     <div class="col-12">
-      <div id="prd_dt-para" class="border-md-top mt-4">
+      <div id="prd_dt-para" style="scroll-margin-top: 90px" class="border-md-top mt-4">
         <div class="prd_dt-para-heading mt-2 mb-2">
-          <span style="font-size: 25px;" class="d-block text-center font-weight-bold">CHI TIẾT SẢN PHẨM</span>
+          <span style="font-size: 20px;" class="d-block border-bottom pb-2">CHI TIẾT SẢN PHẨM</span>
         </div>
         <div class="prd_dt-para-content">
           <?php echo $prd_desc ?>
@@ -192,7 +192,7 @@ if ($result) {
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <form method="Post" action="add_cart.php">
+      <form id="addToCartForm">
         <div class="modal-body">
           <div class="d-flex align-items-center justify-content-center flex-column">
             <?php
@@ -217,9 +217,10 @@ if ($result) {
                 echo ($currentQtt > 1) ? "<span class='mb-3'>Bạn đã thêm $currentQtt sản phẩm vào giỏ hàng trước đó.</span>" : "";
                 ?>
                 <div class="numInput">
-                  <input type="text" name="id" readonly hidden value="<?php echo $prd_id ?>">
+                  <input type="text" name="id" id="prdId" readonly hidden value="<?php echo $prd_id ?>">
+                  <input type="text" name="userName" id="userName" readonly hidden value="<?php echo $userName ?>">
                   <button type="button" id="numDn"><i class='bx bx-minus'></i></button>
-                  <input id="numIn" name="quantity" type="number" min="1" max="<?php echo $prd_quantity ?>" value="<?php echo $currentQtt ?>">
+                  <input id="numIn" name="quantity" id="prd_quantity" type="number" min="1" max="<?php echo $prd_quantity ?>" value="<?php echo $currentQtt ?>">
                   <button type="button" id="numUp"><i class='bx bx-plus'></i></button>
                 </div>
               <?php
@@ -228,7 +229,7 @@ if ($result) {
             <?php
             } else {
             ?>
-              <span class="text-danger font-weight-bold">Đăng nhập để tiếp tục.</span>
+              <span class="text-danger font-weight-bold">Đăng nhập để tiếp tục !</span>
             <?php
             }
             ?>
@@ -242,7 +243,7 @@ if ($result) {
             <?php
             if ($prd_quantity > 0) {
             ?>
-              <button type="submit" class="btn btn-primary">
+              <button id="addSubmit" class="btn btn-primary">
                 Thêm vào giỏ
               </button>
             <?php
@@ -251,7 +252,6 @@ if ($result) {
           <?php
           } else {
           ?>
-            <a href="registry.php" type="button" class="btn btn-primary">Đăng ký</a>
             <a href="login.php" type="button" class="btn btn-primary">Đăng nhập</a>
           <?php
           }
@@ -261,37 +261,7 @@ if ($result) {
     </div>
   </div>
 </div>
-
-<script>
-  let numUp = document.getElementById('numUp');
-  let numDn = document.getElementById('numDn');
-  let numIn = document.getElementById('numIn');
-
-  numUp.onclick = () => {
-    if (+numIn.value < +numIn.max) {
-      numIn.value = +numIn.value + 1;
-    }
-  }
-  numDn.onclick = () => {
-    if (+numIn.value > +numIn.min) {
-      numIn.value = +numIn.value - 1;
-    }
-  }
-</script>
-
-<script>
-  let mainImg = document.getElementById("bigImg");
-  let relImg = document.querySelectorAll("#relative_img img");
-  let currentSrc = mainImg.getAttribute('src');
-
-  relImg.forEach(function(value) {
-    value.addEventListener('click', function() {
-      currentSrc = this.getAttribute('src')
-      mainImg.src = currentSrc;
-      bgr.style.background = `"url('${currentSrc}')"`;
-    })
-  })
-</script>
+<script src="./assets/js/productDetail.js"></script>
 <?php
 include("./footer.php")
 ?>

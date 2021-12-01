@@ -5,7 +5,6 @@
 	</button>
 </div>
 <!-- Cart Show -->
-</div>
 </main>
 
 <footer class="page-footer font-small blue-grey lighten-5 mt-5 pt-1" style="background: rgba(240,240,240,0.4)" ;>
@@ -81,45 +80,10 @@
 	</div>
 </footer>
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-<script>
-	let cartIcon = document.getElementById('cart-view-btn');
-	let expandCartMenu = document.getElementById('cart-view-content');
-	let backIcon = document.getElementById('backIcon');
-	let header = document.getElementById("header__main");
-
-	backIcon.onclick = () => {
-		document.body.scrollTop = 0;
-		document.documentElement.scrollTop = 0;
-	}
-
-
-	window.addEventListener('click', function(e) {
-		if (cartIcon.contains(e.target)) {
-			expandCartMenu.classList.toggle('act');
-		} else {
-			if (expandCartMenu.contains(e.target)) {
-				e.preventDefault
-			} else {
-				expandCartMenu.classList.remove('act');
-			}
-		}
-	});
-
-	window.onscroll = () => {
-		if (window.pageYOffset > header.offsetTop) {
-			header.classList.add("sticky");
-			backIcon.style.display = "block";
-		} else {
-			header.classList.remove("sticky");
-			backIcon.style.display = "none";
-		}
-	};
-
-	alert("- Project đang trong quá trình đập đi xây lại (phiên bản mới sử dụng thêm Ajax và một số lib, framework.)\n- Phiên bản hiện tại không còn được maintain nên sẽ có một số chức năng chưa được hoàn thiện (nhất là trên giao diện mobile).\n\n--- Kiều Vũ ---")
-</script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="./assets/js/main.js"></script>
 </body>
 
 </html>

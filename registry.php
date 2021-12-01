@@ -7,59 +7,6 @@ if (!empty($_SESSION['loginData'])) {
 
 include("./function/sqlconn.php");
 ?>
-<?php
-$userAccount = "";
-$userPass = "";
-$userRePass = "";
-$err = [];
-
-if (!empty($_POST)) {
-  $userAccount = $_POST['userAccount'];
-  $userPass = $_POST['userPass'];
-  $userRePass = $_POST['userRePass'];
-
-  if (empty($userAccount)) {
-    $err['userAccount'] = "*Chưa nhập tài khoản.";
-  } else {
-    if (strlen($userAccount) < 8) {
-      $err['userAccount'] = "*Tên tài khoản phải trên 8 ký tự.";
-    } else {
-      $query = "SELECT *  FROM users WHERE userAccount LIKE '$userAccount'";
-      $result = mysqli_query($conn, $query);
-      if (mysqli_num_rows($result) > 0) {
-        $err['userAccount'] = "*Tên tài khoản đã có người sử dụng.";
-      }
-    }
-  }
-
-  if (empty($userPass)) {
-    $err['userPass'] = "*Chưa nhập mật khẩu.";
-  } else {
-    if (strlen($userPass) < 8) {
-      $err['userAccount'] = "*Mật khẩu phải trên 8 ký tự.";
-    } else {
-      if ($userPass != $userRePass) {
-        $err['userPass'] = "*Mật khẩu nhập lại không khớp.";
-      }
-    }
-  }
-
-  if (empty($err)) {
-    $userId = randomName(10);
-    $userPass = password_hash($userPass, PASSWORD_DEFAULT);
-    $query = "INSERT INTO users( userAccount, userPass  ,userCreatedAt ) VALUES('$userAccount','$userPass',now())";
-    if (mysqli_query($conn, $query)) {
-      $userAccount = "";
-      $userPass = "";
-      $userRePass = "";
-      mysqli_close($conn);
-      echo "<script>window.top.location='login.php';</script>";
-    }
-  }
-}
-
-
-?>
 <div id="main_registry">
   <div class="container">
     <div class="logForm">
@@ -67,33 +14,31 @@ if (!empty($_POST)) {
         <img src="./assets/img/user.png" alt="">
       </div>
       <span class="log_heading text-dark mb-3">ĐĂNG KÝ</span>
-      <form action="" method="POST">
+      <form>
         <div class="form-group">
-          <label for="userAccount">Tài khoản:</label>
-          <span class="text-danger"><?php echo (!empty($err['userAccount'])) ? $err['userAccount'] : "" ?></span>
+          <label for="account" id="userAccount">Tài khoản:</label>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-default userAccount">Nhập tài khoản</span>
+              <span class="input-group-text" id="inputGroup-sizing-default ">Nhập tài khoản</span>
             </div>
-            <input type="text" value="<?php echo $userAccount ?>" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="userAccount">
+            <input id="account" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
           </div>
         </div>
         <div class="form-group">
-          <label for="userPassword">Mật khẩu:</label>
-          <span class="text-danger"><?php echo (!empty($err['userPass'])) ? $err['userPass'] : "" ?></span>
+          <label for="password" id="userPassword">Mật khẩu:</label>
           <div class=" input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-default userPassword">Nhập mật khẩu</span>
+              <span class="input-group-text" id="inputGroup-sizing-default">Nhập mật khẩu</span>
             </div>
-            <input type="password" autocomplete="new-password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="userPass">
+            <input id="password" type="password" autocomplete="new-password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
           </div>
         </div>
         <div class="form-group">
           <div class="input-group mb-3">
             <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroup-sizing-default userRePass">Nhập lại mật khẩu</span>
+              <span class="input-group-text" id="inputGroup-sizing-default rePass">Nhập lại mật khẩu</span>
             </div>
-            <input type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default" name="userRePass">
+            <input id="rePass" type="password" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
           </div>
         </div>
         <div class="d-flex justify-content-between mb-3">
@@ -101,12 +46,33 @@ if (!empty($_POST)) {
           <a href="">Quên mật khẩu</a>
         </div>
         <div class="text-center">
-          <button type="submit" class="btn btn-primary">Đăng ký</button>
+          <button type="submit" id="reg_submit" class="btn btn-primary">Đăng ký</button>
         </div>
       </form>
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="regSucc" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Đăng kí thành công</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="mt-2 mb-2">Bạn có muốn chuyển hướng tới trang đăng nhập ?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Không</button>
+        <a type="button" href="./login.php" class="btn btn-primary text-white">Đăng nhập</a>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="./assets/js/registry.js"></script>
 <?php
 include('./footer.php')
 ?>
